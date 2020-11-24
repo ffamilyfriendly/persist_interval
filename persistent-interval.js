@@ -8,10 +8,9 @@ class Manager {
      * @param {Number} timeout how often the persistent date shall be saved
      * @param {Function} onInit callback function that is ran when Manager is initialized 
      */
-    async constructor(persistent_path = "./", timeout = 1000 * 60, onInit = () => {}) {
+    constructor(persistent_path = "./", timeout = 1000 * 60, onInit = () => {}) {
         this._refferences = {  }
         this._data = {}
-        this._queued_data = { intervals:[], timeouts:[] }
         this.initialised = false
         if(!fs.existsSync(`${persistent_path}interval_data.json`)) {
             fs.appendFileSync(`${persistent_path}interval_data.json`,`{ "info":"version: ${version.join(".")}   |   by github/ffamilyfriendly", "intervals":{}, "timeouts":{} }`)
@@ -28,10 +27,6 @@ class Manager {
                 }, timeout)
             }
         })
-    }
-
-    _dev_dump() {
-        return this._data
     }
 
     _setInterval(name, callback, time) {
